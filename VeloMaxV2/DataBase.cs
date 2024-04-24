@@ -10,7 +10,7 @@ namespace VeloMaxV2
 {
     internal class DataBase
     {
-        static string connection_string = "Server=localhost;Database=velomax;Uid=root;Pwd=root;";
+        public static string connection_string = "Server=localhost;Database=velomax;Uid=root;Pwd=root;";
         static bool test = true;
         static string name = "velomax";
         public static QueryResult execute_query(string query, bool select_display = false)

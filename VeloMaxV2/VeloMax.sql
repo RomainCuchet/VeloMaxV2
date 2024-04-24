@@ -386,11 +386,6 @@ VALUES
 (4, 4, 15),
 (5, 1, 2);
 
-
-
--- Recherche synchronisée
-
-
--- Mise à jour du stock (par exemple, réduction de la quantité en stock de certains modèles)
-
-
+CREATE USER 'bozo'@'localhost' IDENTIFIED BY 'bozo';
+GRANT SELECT ON VeloMax.* TO 'bozo'@'localhost';
+FLUSH PRIVILEGES;

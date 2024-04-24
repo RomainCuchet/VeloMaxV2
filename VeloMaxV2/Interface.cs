@@ -127,6 +127,17 @@ namespace VeloMaxV2
             );
 
             home = menu_main;
+            Console.WriteLine("Se connecter en tant que super utilisateur (no/other)");
+            if (Console.ReadLine() == "no")
+            {
+                Console.WriteLine("Connection en lecture seule, toute modification sera impossible");
+                DataBase.connection_string = "Server=localhost;Database=velomax;Uid=bozo;Pwd=bozo;";
+            }
+            else
+            {
+                Console.WriteLine("Connection en mode super utilisateur");
+            }
+            Thread.Sleep(3000);
             menu_main.Activate();
 
         }
