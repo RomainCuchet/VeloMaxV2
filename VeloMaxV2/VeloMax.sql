@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS Magasin
     date_creation DATE,
     chiffre_affaire FLOAT,
     moyenne_satisfaction FLOAT,
-    idAdresse INT,
-    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse)
+    idAdresse INT NULL,
+    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse) ON DELETE SET NULL
 );
 CREATE TABLE IF NOT EXISTS Piece
 (
@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS Fournisseur
     telephone INT,
     mail VARCHAR(30),
     reactivite INT CONSTRAINT check_reactivite CHECK (reactivite BETWEEN 1 AND 4), 
-    idAdresse INT,
-    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse)
+    idAdresse INT NULL,
+    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS Commande
@@ -79,8 +79,8 @@ CREATE TABLE IF NOT EXISTS Commande
     date_commande DATE,
     date_livraison DATE,
     montant FLOAT,
-    idAdresse INT NOT NULL,
-    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse)
+    idAdresse INT NULL,
+    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS Client
@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS Entreprise
     mail VARCHAR(30),
     nom VARCHAR(30),
     remise FLOAT,
-    idAdresse INT,
-    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse)
+    idAdresse INT NULL,
+    FOREIGN KEY(idAdresse) REFERENCES Adresse(idAdresse) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS manageur(
@@ -226,9 +226,9 @@ VALUES ('Dupont', 'Marie', 123456789, 'marie.dupont@example.com', 1),
 ('Garcia', 'Sofia', 0130569889,'sofia.garcia@example.com', 4),
 ('Kim', 'Minho', 0130569889, 'minho.kim@example.com', 5),
 ('Chen', 'Wei', 0130569845, 'wei.chen@example.com', 6),
-('Johnson', 'Emma', 0630569862, 'emma.johnson@example.com', 7),
+('Garcia', 'Emma', 0630569862, 'emma.garcia@example.com', 7),
 ('Dubois', 'Pierre', 0130585862, 'pierre.dubois@example.com', 8),
-('Martinez', 'Elena', 0880569862,'elena.martinez@example.com', 9);
+('Smith', 'Elena', 0880569862,'elena.smith@example.com', 9);
 
 INSERT INTO Salarie (idPersonne, date_arrivee, salaire, prime)
 VALUES(1, '2021-01-01', 2000, 100),
