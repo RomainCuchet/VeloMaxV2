@@ -16,8 +16,8 @@ namespace VeloMaxV2
             Console.WriteLine("Autojointure : trouver tous les clients ayant le même nom de famille");
             (DataBase.execute_query("SELECT DISTINCT p1.idPersonne, p1.nom, p1.prenom, p1.telephone, p1.mail, p1.idAdresse FROM Personne p1 JOIN Personne p2 ON p1.nom = p2.nom AND p1.idPersonne <> p2.idPersonne WHERE p1.prenom <> p2.prenom;")).Display();
             next();
-            Console.WriteLine("Union : Afin d'arranger un manageur trouver l'adresse de tous ses vendeurs et clients");
-            DataBase.execute_query("SELECT * FROM Adresse WHERE idAdresse IN ( SELECT idAdresse FROM Personne UNION SELECT idAdresse FROM Salarie WHERE idSalarie IN(SELECT idSalarie FROM vendeur));").Display();
+            Console.WriteLine("Union : prix des velos et des pièces ");
+            DataBase.execute_query("SELECT prix from piece Union SELECT prix from modele;").Display();
             next();
             Console.WriteLine("Syncronized : Recherche et modification du nombre de pièces de vend_modele idModele = 101");
             DataBase.execute_query("SELECT m.idModele, m.nom, m.prix, v.quantite FROM Modele m JOIN vend_modele v ON m.idModele = v.idModele WHERE v.idMagasin = 1;").Display();

@@ -1,6 +1,7 @@
 -- Active: 1712592380272@@127.0.0.1@3306@velomax
-CREATE DATABASE IF NOT EXISTS VeloMax;
-USE VeloMax;
+DROP DATABASE IF EXISTS VeloMax2;
+CREATE DATABASE IF NOT EXISTS VeloMax2;
+USE VeloMax2;
 
 CREATE TABLE IF NOT EXISTS Adresse
 (
@@ -55,11 +56,11 @@ CREATE TABLE IF NOT EXISTS Modele
 (
     idModele INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(30),
-    grandeur FLOAT,
+    grandeur VARCHAR(8),
     prix FLOAT,
     date_introduction DATE,
     date_discontinuation DATE,
-    ligne_produit VARCHAR(14) CONSTRAINT check_ligne CHECK (ligne_produit IN("VTT","V�lo de course","Classique","BMX"))
+    ligne_produit VARCHAR(14) CONSTRAINT check_ligne CHECK (ligne_produit IN("VTT","Velo de course","Classique","BMX"))
 );
 
 CREATE TABLE IF NOT EXISTS Fournisseur
@@ -206,8 +207,6 @@ CREATE TABLE IF NOT EXISTS souscription_fidelio(
     adhesion DATE,
     PRIMARY KEY(idClient, idFidelio)
 );
-
---la génération ne fonctionne pas sur votre machine car les is ne sont pas les mêmes en raison de AUTO_INCREMENT
 INSERT INTO Adresse (numero_rue, rue, ville, code_postal, province)
 VALUES 
 (123, 'Rue de la Paix', 'Paris', 75001, 'Île-de-France'),
@@ -233,12 +232,12 @@ VALUES ('Dupont', 'Marie', 123456789, 'marie.dupont@example.com', 1),
 ('Martinez', 'Elena', 0880569862,'elena.martinez@example.com', 9);
 
 INSERT INTO Salarie (idPersonne, date_arrivee, salaire, prime)
-VALUES(109, '2021-01-01', 2000, 100),
-(110, '2022-02-01', 2060, 400),
-(111, '2021-08-04', 2000, 100),
-(112, '2020-07-15', 1900, 600),
-(113, '2021-01-01', 2000, 90),
-(113, '2021-01-01', 4000, 600);
+VALUES(1, '2021-01-01', 2000, 100),
+(2, '2022-02-01', 2060, 400),
+(3, '2021-08-04', 2000, 100),
+(4, '2020-07-15', 1900, 600),
+(5, '2021-01-01', 2000, 90),
+(6, '2021-01-01', 4000, 600);
 
 INSERT INTO Magasin (date_creation, chiffre_affaire, moyenne_satisfaction, idAdresse)
 VALUES('2021-01-01', 10000, 4, 1),
@@ -246,18 +245,18 @@ VALUES('2021-01-01', 10000, 4, 1),
 ('2021-08-04', 15000, 2, 3),
 ('2020-07-15', 12000, 1, 4);
 INSERT INTO vendeur (idSalarie, chiffre_affaire,idMagasin)
-VALUES(11, 10000,1),
-(12, 20000,2),
-(13, 15000,3),
-(14, 12000,4);
+VALUES(1, 10000,1),
+(2, 20000,2),
+(3, 15000,3),
+(4, 12000,4);
 SELECT * FROM salarie;
-INSERT INTO manageur (idSalarie, idMagasin) VALUES(15, 1),(16,2);
+INSERT INTO manageur (idSalarie, idMagasin) VALUES(5, 1),(6,2);
 
 INSERT INTO client (idPersonne)
-VALUES(113),
-(114),
-(115),
-(116);
+VALUES(7),
+(8),
+(9),
+(6);
 
 INSERT INTO Piece (info, prix, date_introduction, date_discontinuation)
 VALUES 
@@ -287,21 +286,43 @@ VALUES
 (2, 4, 3),
 (3, 5, 2);
 
+select * from modele;
+
+INSERT INTO Modele (nom, grandeur, prix, date_introduction, date_discontinuation, ligne_produit) 
+VALUES
+('Kilimandjaro', 'Adultes', 569, '2022-01-01', NULL, 'VTT'),
+('NorthPole', 'Adultes', 329, '2022-01-01', NULL, 'VTT'),
+('MontBlanc', 'Jeunes', 399, '2022-01-01', NULL, 'VTT'),
+('Hooligan', 'Jeunes', 199, '2022-01-01', NULL, 'VTT'),
+('Orléans', 'Hommes', 229, '2022-01-01', NULL, 'Velo de course'),
+('Orléans', 'Dames', 229, '2022-01-01', NULL, 'Velo de course'),
+('BlueJay', 'Hommes', 349, '2022-01-01', NULL, 'Velo de course'),
+('BlueJay', 'Dames', 349, '2022-01-01', NULL, 'Velo de course'),
+('Trail Explorer', 'Filles', 129, '2022-01-01', NULL, 'Classique'),
+('Trail Explorer', 'Garçons', 129, '2022-01-01', NULL, 'Classique'),
+('Night Hawk', 'Jeunes', 189, '2022-01-01', NULL, 'Classique'),
+('Tierra Verde', 'Hommes', 199, '2022-01-01', NULL, 'Classique'),
+('Tierra Verde', 'Dames', 199, '2022-01-01', NULL, 'Classique'),
+('Mud Zinger I', 'Jeunes', 279, '2022-01-01', NULL, 'BMX'),
+('Mud Zinger II', 'Adultes', 359, '2022-01-01', NULL, 'BMX');
+
+
 INSERT INTO commande_velo (idCommande, idModele, quantite)
 VALUES 
-(1, 105, 1),
-(1, 106, 2),
-(2, 107, 3),
-(2, 108, 1),
-(3, 109, 2);
+(1, 1, 1),
+(1, 2, 2),
+(2, 3, 3),
+(2, 4, 1),
+(3, 5, 2);
 
+select * from client;
 INSERT INTO commande_client (idCommande, idClient)
 VALUES 
 (1, 1),
 (1, 2),
 (2, 3),
 (3, 4),
-(3, 5);
+(1, 4);
 
 INSERT INTO Entreprise (nom_compagnie, telephone, mail, nom, remise, idAdresse)
 VALUES 
@@ -314,11 +335,11 @@ VALUES
 -- Commandes d'entreprises
 INSERT INTO commande_entreprise (idCommande, idEntreprise)
 VALUES 
-(1, 6),
-(2, 7),
-(3, 8),
-(4, 9),
-(5, 10);
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
 
 INSERT INTO Fournisseur (idFournisseur, nom, telephone, mail, reactivite, idAdresse)
 VALUES 
@@ -345,38 +366,34 @@ VALUES
 
 INSERT INTO fournit_modele (idModele, idFournisseur, prix, delai)
 VALUES 
-(101, 1, 200.00, 14),
-(102, 2, 150.00, 10),
-(103, 3, 120.00, 7),
-(104, 4, 250.00, 21),
-(105, 5, 300.00, 28);
+(1, 1, 200.00, 14),
+(2, 2, 150.00, 10),
+(3, 3, 120.00, 7),
+(4, 4, 250.00, 21),
+(5, 5, 300.00, 28);
 INSERT INTO souscription_fidelio (idClient, idFidelio, regle, adhesion)
 VALUES 
-(1, 9, 1, '2023-01-15'),
-(2, 10, 1, '2023-02-20'),
-(3, 11, 1, '2023-03-10'),
-(4, 12, 0, '2023-04-05'),
-(5, 9, 1, '2023-05-12'),
-(6, 10, 1, '2023-06-30'),
-(7, 11, 1, '2023-07-25'),
-(8, 12, 0, '2023-08-15');
+(1, 1, 1, '2023-01-15'),
+(2, 2, 1, '2023-02-20'),
+(3, 3, 1, '2023-03-10'),
+(4, 4, 0, '2023-04-05');
 
 Select * From magasin;
 
 INSERT INTO vend_modele (idModele, idMagasin, quantite)
 VALUES 
-(101, 1, 10),
-(102, 2, 15),
-(103, 3, 20),
-(104, 4, 12),
-(105, 4, 8),
-(106, 1, 5),
-(107, 2, 10),
-(108, 3, 15),
-(109, 4, 20),
-(110, 4, 12),
-(111, 1, 8),
-(112, 2, 5);
+(1, 1, 10),
+(2, 2, 15),
+(3, 3, 20),
+(4, 4, 12),
+(5, 4, 8),
+(6, 1, 5),
+(7, 2, 10),
+(8, 3, 15),
+(9, 4, 20),
+(10, 4, 12),
+(11, 1, 8),
+(12, 2, 5);
 
 INSERT INTO vend_piece (idPiece, idMagasin, quantite)
 VALUES 
@@ -386,6 +403,6 @@ VALUES
 (4, 4, 15),
 (5, 1, 2);
 
-CREATE USER 'bozo'@'localhost' IDENTIFIED BY 'bozo';
+CREATE USER 'bozo'@'localhost' IDENTIFIED BY 'bozo' ;
 GRANT SELECT ON VeloMax.* TO 'bozo'@'localhost';
 FLUSH PRIVILEGES;
