@@ -2,6 +2,10 @@
 
 ## Base de données
 
+### Diagramme EA
+
+![Untitled](Rapport%20VeloMax%206ebab60e27f24703920ef9b259db5bbf/Untitled.png)
+
 ### Génération d’un utilisateur en lecture seule :
 
  
@@ -42,8 +46,6 @@ Le résultat d’une requête est défini comme une classe ayant trois attribues
 - `data` est un dictionnaire de liste d’objets avec pour clef le nom des champs. : `Dictionary<string, List<object>>`
 - `succes` est à false si la requête génère une erreur sql
 - `error_message` le potentiel message d’erreur
-    
-    
 
 Toutes les requêtes sont envoyés à la base de donnée à l’aide de `DataBase.execute_query()`
 
