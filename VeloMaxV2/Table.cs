@@ -261,7 +261,9 @@ namespace VeloMaxV2
                     query += " ,";
                 }
             }
-            return query.Substring(0, query.Length - 2);
+            query = query.Substring(0, query.Length - 1);
+            query += $"WHERE id{name} = {id};";
+            return query;
         }
 
 

@@ -45,7 +45,7 @@ namespace VeloMaxV2
         public static void statistiques(Interface inter)
         {
             Console.WriteLine("Client par programme fidelio : ");
-            for(int i = 9;i<13;i++)
+            for(int i = 1;i<4;i++)
             {
                 DataBase.execute_query($"SELECT Personne.*,Client.idClient,Fidelio.info,souscription_fidelio.adhesion,Fidelio.durre AS durée_en_jours FROM Personne NATURAL JOIN Client JOIN souscription_fidelio ON souscription_fidelio.idClient = Client.idClient JOIN Fidelio ON Fidelio.idFidelio = souscription_fidelio.idFidelio WHERE Fidelio.idFidelio = {i}").Display();
             }
