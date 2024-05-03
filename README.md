@@ -2,10 +2,6 @@
 
 ## Base de données
 
-### Diagramme EA
-
-![Untitled](Rapport%20VeloMax%206ebab60e27f24703920ef9b259db5bbf/Untitled.png)
-
 ### Génération d’un utilisateur en lecture seule :
 
  
